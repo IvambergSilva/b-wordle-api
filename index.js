@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(cors());
 } else {
   const corsOptions = {
-    origin: 'https://b-wordle-api.onrender.com/wordsGroup', // Troque para o domínio do seu aplicativo de produção
+    origin: 'https://b-wordle-api.onrender.com', // Troque para o domínio do seu aplicativo de produção
     optionsSuccessStatus: 200,
   };
   app.use(cors(corsOptions));
