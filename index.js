@@ -4,22 +4,17 @@ const router = jsonServer.router("db.json")
 const middlewares = jsonServer.defaults()
 const port = process.env.PORT || 3001
 
-server.use(router)
-server.use(middlewares)
+server.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Define quem pode acessar (pode ser um domínio específico em vez de '*')
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Define os métodos HTTP permitidos
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); // Define os headers permitidos
+    next();
+});
 
-const cors = require("cors")
-server.use(cors())
+server.use(middlewares)
+server.use(router)
+
+// const cors = require("cors")
+// server.use(cors())
 
 server.listen(port)
-
-if (process.env.NODE_ENV === 'development') {
-  app.use(cors());
-} else {
-  const corsOptions = {
-    origin: 'https://b-wordle-api.onrender.com', // Troque para o domínio do seu aplicativo de produção
-    optionsSuccessStatus: 200,
-  };
-  app.use(cors(corsOptions));
-}
-
-// Resto do código da sua API...
