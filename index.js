@@ -11,3 +11,15 @@ const cors = require("cors")
 server.use(cors())
 
 server.listen(port)
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(cors());
+} else {
+  const corsOptions = {
+    origin: 'https://b-wordle-api.onrender.com/wordsGroup', // Troque para o domínio do seu aplicativo de produção
+    optionsSuccessStatus: 200,
+  };
+  app.use(cors(corsOptions));
+}
+
+// Resto do código da sua API...
